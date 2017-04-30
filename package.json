@@ -1,0 +1,35 @@
+{
+  "name": "onesignal-sdk",
+  "version": "1.0.0",
+  "description": "Onesignal SDK",
+  "main": "onesignal.js",
+  "scripts": {
+    "test": "node test/*.js | tap-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oddoye-david/onesignal-sdk.git"
+  },
+  "keywords": [
+    "onesignal"
+  ],
+  "author": "David Oddoye <oddoyedavid@gmail.com> (https://oddoye.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oddoye-david/onesignal-sdk/issues"
+  },
+  "homepage": "https://github.com/oddoye-david/onesignal-sdk#readme",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "joi": "^10.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3"
+  }
+}
