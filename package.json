@@ -1,10 +1,10 @@
 {
   "name": "onesignal-sdk",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Onesignal SDK",
   "main": "onesignal.js",
   "scripts": {
-    "test": "node test/*.js | tap-spec"
+    "test": "NODE_ENV='testing' tape tests/**/*.js | tap-spec"
   },
   "repository": {
     "type": "git",

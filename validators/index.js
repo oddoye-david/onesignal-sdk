@@ -1,9 +1,11 @@
 'use strict';
 
-const AppSchema = require('./app');
+const CreateAppSchema = require('./create_app');
+const EditAppSchema = require('./edit_app');
 const IdSchema = require('./id');
 
 module.exports = {
-  AppSchema,
+  CreateAppSchema,
+  EditAppSchema,
   IdSchema,
 };
