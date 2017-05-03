@@ -21,7 +21,7 @@ function OneSignalSDK(opts) {
     headers: {
       Authorization: `Basic ${opts.api_key}`,
     },
-    timeout: process.env.NODE_ENV === 'testing' ? 1000 : undefined,
+    timeout: process.env.NODE_ENV === 'testing' ? 3000 : undefined,
   });
 
   return {
