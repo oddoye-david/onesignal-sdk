@@ -2,7 +2,7 @@
   "name": "onesignal-sdk",
   "version": "0.0.1",
   "description": "Onesignal SDK",
-  "main": "onesignal.js",
+  "main": "onesignal/index.js",
   "scripts": {
     "test": "NODE_ENV='testing' tape tests/**/*.js | tap-spec"
   },
