@@ -2,92 +2,105 @@
 
 const Joi = require('joi');
 
-const { CreateAppSchema, IdSchema, EditAppSchema } = require('../validators');
+const Utils = require('../utils');
+const {
+  CreateAppSchema,
+  IdSchema,
+  EditAppSchema,
+} = require('../validators');
 
 module.exports = axios => ({
-    /**
-     * Get all OneSignal apps
-     *
-     * @param {Function} cb Callback function for backwards compatibility
-     * @returns {Promise}
-     */
-  getApps(cb) {
-    const callback = cb || (() => {});
+  /**
+   * Get all OneSignal apps
+   *
+   * @param {Function} callback Callback function for backwards compatibility
+   * @returns {Promise}
+   */
+  getApps(callback) {
+    if (!callback || !Utils.isFunction(callback)) {
+      callback = function () {};
+    }
+
     return axios.get('/apps')
-        .then((response) => {
-          callback(null, response.data);
-          return response.data;
-        })
-        .catch((err) => {
-          callback(err, null);
-          return err;
-        });
+      .then((response) => {
+        callback(null, response.data);
+        return response.data;
+      })
+      .catch((err) => {
+        callback(err, null);
+        return err;
+      });
   },
 
-    /**
-     * Get details of a OneSignal app
-     *
-     * @param {Function} cb Callback function for backwards compatibility
-     * @returns {Promise}
-     */
-  getApp(id, cb) {
+  /**
+   * Get details of a OneSignal app
+   *
+   * @param {String} id Id of the app
+   * @param {Function} callback Callback function for backwards compatibility
+   * @returns {Promise}
+   */
+  getApp(id, callback) {
     const {
-        error,
-      } = Joi.validate(id, IdSchema);
+      error,
+    } = Joi.validate(id, IdSchema);
 
     if (error) {
       throw error;
     }
 
-    const callback = cb || (() => {});
+    if (!callback || !Utils.isFunction(callback)) {
+      callback = function () {};
+    }
     return axios.get(`/apps/${id}`)
-        .then((response) => {
-          callback(null, response.data);
-          return response.data;
-        })
-        .catch((err) => {
-          callback(err, null);
-          return err;
-        });
+      .then((response) => {
+        callback(null, response.data);
+        return response.data;
+      })
+      .catch((err) => {
+        callback(err, null);
+        return err;
+      });
   },
 
-    /**
-     * Create a OneSignal app
-     *
-     * @param {App} data App Object see https://documentation.onesignal.com/reference#create-an-app
-     * @param {Function} cb Callback function for backwards compatibility
-     * @returns {Promise}
-     */
-  createApp(data, cb) {
+  /**
+   * Create a OneSignal app
+   *
+   * @param {App} data App Object see https://documentation.onesignal.com/reference#create-an-app
+   * @param {Function} callback Callback function for backwards compatibility
+   * @returns {Promise}
+   */
+  createApp(data, callback) {
     const {
-        error,
-      } = Joi.validate(data, CreateAppSchema);
+      error,
+    } = Joi.validate(data, CreateAppSchema);
 
     if (error) {
       throw error;
     }
 
-    const callback = cb || (() => {});
+    if (!callback || !Utils.isFunction(callback)) {
+      callback = function () {};
+    }
     return axios.post('/apps', data)
-        .then((response) => {
-          callback(null, response.data);
-          return response.data;
-        })
-        .catch((err) => {
-          callback(err, null);
-          return err;
-        });
+      .then((response) => {
+        callback(null, response.data);
+        return response.data;
+      })
+      .catch((err) => {
+        callback(err, null);
+        return err;
+      });
   },
 
-    /**
-     * Edit a OneSignal app
-     *
-     * @param {String} id
-     * @param {App} data App Object see https://documentation.onesignal.com/reference#create-an-app
-     * @param {Function} cb Callback function for backwards compatibility
-     * @returns {Promise}
-     */
-  editApp(id, data, cb) {
+  /**
+   * Edit a OneSignal app
+   *
+   * @param {String} id
+   * @param {App} data App Object see https://documentation.onesignal.com/reference#create-an-app
+   * @param {Function} callback Callback function for backwards compatibility
+   * @returns {Promise}
+   */
+  editApp(id, data, callback) {
     const idError = Joi.validate(id, IdSchema).error;
 
     if (idError) {
@@ -100,15 +113,17 @@ module.exports = axios => ({
       throw appError;
     }
 
-    const callback = cb || (() => {});
+    if (!callback || !Utils.isFunction(callback)) {
+      callback = function () {};
+    }
     return axios.put('/apps', data)
-        .then((response) => {
-          callback(null, response.data);
-          return response.data;
-        })
-        .catch((err) => {
-          callback(err, null);
-          return err;
-        });
+      .then((response) => {
+        callback(null, response.data);
+        return response.data;
+      })
+      .catch((err) => {
+        callback(err, null);
+        return err;
+      });
   },
 });

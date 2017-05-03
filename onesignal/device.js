@@ -2,6 +2,7 @@
 
 const Joi = require('joi');
 
+const Utils = require('../utils');
 const {
   QueryParamSchema,
   IdSchema,
@@ -11,19 +12,23 @@ module.exports = axios => ({
   /**
    * Get all devices for the specified Onesignal app
    *
-   * @param {Function} cb Callback function for backwards compatibility
+   * @param {Function} callback Callback function for backwards compatibility
    * @returns {Promise}
    */
-  getDevices(appId, paginationParams, cb) {
+  getDevices(appId, paginationParams, callback) {
     const {
       error,
-    } = Joi.validate({ ...paginationParams, app_id: appId }, QueryParamSchema);
+    } = Joi.validate(Object.assign({}, paginationParams, {
+      app_id: appId,
+    }), QueryParamSchema);
 
     if (error) {
       throw error;
     }
 
-    const callback = cb || (() => {});
+    if (!callback || !Utils.isFunction(callback)) {
+      callback = function () {};
+    }
     return axios.get(`/players?app_id=${appId}&limit=${paginationParams.limit}&offset=${paginationParams.offset}`)
       .then((response) => {
         callback(null, response.data);
@@ -38,10 +43,10 @@ module.exports = axios => ({
   /**
    * Get details of a device
    *
-   * @param {Function} cb Callback function for backwards compatibility
+   * @param {Function} callback Callback function for backwards compatibility
    * @returns {Promise}
    */
-  getDevice(id, appId, cb) {
+  getDevice(id, appId, callback) {
     const idError = Joi.validate(id, IdSchema).error;
 
     if (idError) {
@@ -54,7 +59,9 @@ module.exports = axios => ({
       throw appIdError;
     }
 
-    const callback = cb || (() => {});
+    if (!callback || !Utils.isFunction(callback)) {
+      callback = function () {};
+    }
     return axios.get(`/players/${id}?app_id=${appId}`)
       .then((response) => {
         callback(null, response.data);

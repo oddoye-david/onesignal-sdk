@@ -7,7 +7,7 @@ const Device = require('./device');
 /**
  * OneSignal SDK
  *
- * @param {String} opts.api_key API Key for Onesignal account.
+ * @param {Object} opts.api_key API Key for Onesignal account.
  * @returns {Object}
  */
 module.exports = function OneSignalSDK(opts) {
@@ -26,9 +26,5 @@ module.exports = function OneSignalSDK(opts) {
   const apps = App(baseAxios);
   const devices = Device(baseAxios);
 
-
-  return {
-    ...apps,
-    ...devices,
-  };
+  return Object.assign({}, apps, devices);
 };
